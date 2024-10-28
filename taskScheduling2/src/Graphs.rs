@@ -1,7 +1,6 @@
 
 use std::fs;
 use std::io::{BufRead, BufReader,Write, Error};
-use std::fs::OpenOptions;
 
 use petgraph::Direction;
 use petgraph::stable_graph::{StableDiGraph, NodeIndex, EdgeIndex};
