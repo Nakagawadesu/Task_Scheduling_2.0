@@ -1,8 +1,6 @@
 mod Graphs;
 
-use petgraph::graph;
-
-use std::time::{Instant, Duration};
+use std::time::{Instant};
 fn main() {
 
 
@@ -34,10 +32,15 @@ fn main() {
     graph.find_max_cost_unlocks(n_tasks);
     let visibility_init = graph.update_visibility(n_tasks);
     graph.print_remaining_vec(n_tasks);
-    
+    graph.print_visibility(n_tasks ,&visibility_init);
     let start_time = Instant::now();
  
-  
+  /*
+    let mut colony = Ants::Army::Colony::new(n_tasks ,0.1);
+    colony.update_visibility_sum();
+    let mut worker = Ants::ManagerAnt::new(0.2, &graph.remaining_vec);
+    let sequence = worker.work(&mut graph ,n_ants,&mut colony);
+*/   
 
     let end_time = Instant::now();
 
@@ -46,6 +49,29 @@ fn main() {
     let elapsed_millis = elapsed_time.as_millis();
     let elapsed_micros = elapsed_time.as_micros();
 
-   
+    println!(" Sequence:");
+    for i in 0..n_tasks {
+        //print!(" {}",sequence[i]);
+        print!(" {}",aco.optimal_schedule[i]);
+    }
+println!(" ");    
+println!(
+    "{} Ants spent : {} , computer spent {} micro seconds",
+n_ants,
+//worker.time_spent ,
+aco.optimal_time, 
+elapsed_micros
+);
+graph.write_results_to_file(
+    "/home/matheus/STG/Results/",
+    &graph_name ,
+    &aco.optimal_schedule , 
+    &aco.optimal_time,
+    &n_ants,
+    &n_colonies,
+    &pherohormones_intensity,
+    &benchmark
+);
+
 
 }
